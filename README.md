@@ -1,4 +1,4 @@
-# Pay-Equity-Analysis
+# PAY-EQUITY-ANALYSIS
 This repository contains the documents and details for the econometric analysis on the Gender Wage Gap in the Indian Labour Market, including the data used, software tools and methods, data challenges faced, interpretations, and the STATA commands and output files.
 
 # ECONOMETRIC ANALYSIS OF PAY EQUITY GAP IN INDIA
@@ -23,15 +23,27 @@ o	svy: mean ... over(): To calculate survey-adjusted raw means.
 o	svy: regress: To estimate 24 Mincer-type wage equations.
 o	oaxaca: To run 12 Blinder-Oaxaca decompositions.
 
+# DATA CLEANING, PREPARATION AND CHALLENGES
+The transformation of raw survey data into an dataset ready for smooth analysis flow involved many processes, requiring over 50 iterations to ensure the accuracy and compatibility with the model.
+
+1. Extraction & Conversion: The original PLFS data (downloaded May 2024) was obtained in raw text file format. Stata dictionaries were utilized to extract and convert these files into usable .dta datasets.
+
+2. Variable Management: To ensure clarity and consistency across years, key variables (e.g., Education levels, Social Groups) were renamed and recoded. Irrelevant administrative variables were dropped to optimize dataset size and processing speed.
+
+3. Panel Construction (Appending): Six individual years of datasets (2017-18 to 2023-24) were harmonized and appended to create a unified pooled cross-sectional dataset for trend analysis.
+
+4. Handling Data Gaps:
+
+4.1. Exclusion: The 2020-21 dataset was rigorously evaluated and ultimately excluded due to pandemic-induced irregularities, including a drastically reduced sample size and a high frequency of missing values that threatened statistical validity.
+
+4.2. Imputation: For a specific rural subgroup where 2019 data was missing, a controlled imputation was performed using 2018 baselines. This was executed as a necessary trade-off to maintain the integrity of the long-term trend analysis (and is acknowledged as a limitation).
+
+5. Feature Engineering: Due to the incompatibility of the oaxaca command with standard factor variables, manual dummy variables were engineered for all categorical predictors (e.g., dum_GenEdu, dum_SocialGroup) to facilitate the decomposition analysis.
+
 # KEY FINDINGS
 •	Self-Employed Workers Suffer Most: Urban Self-Employed workers face the most severe pay equity gap (average log-wage gap of 0.9967), followed closely by Rural Self-Employed workers (0.9034). These gaps are significantly larger than those for regular salaried workers.
 •	The Gap is Widening for the Most Vulnerable: The pay gap is visibly increasing (widening) for both rural and urban self-employed workers over the years from 2017-18 to 2023-24 period. In contrast, the gap for regular salaried workers appears relatively stable or fluctuating.
 •	Economic Growth Does Not Equal Pay Equity: The big picture implies that from the comparison between high performing state (Gujarat) and Low performing state () that economic growth alone does not solve the gender pay gap. The higher-performing state (Gujarat) consistently exhibited larger "unexplained" (discriminatory) gaps than the lower-performing state (Manipur).
 
-# Data & Econometric Challenges
-This analysis required navigating several significant data and methodological hurdles to ensure valid results:
-•	Exclusion of 2020-21 Data: The entire 2020-21 PLFS survey round was omitted. This was a deliberate decision to avoid skewed results, as data quality during the COVID-19 pandemic was compromised by small sample sizes and a high number of missing values.
-•	oaxaca Command Incompatibility: The user-written oaxaca command does not support Stata's modern factor variable syntax (e.g., i.GenEdu). This problem required me to find a workaround: manually creating dummy variables for all categorical predictors using tab, gen() and using this separate set of variables for all decomposition models .
 
-•	Decomposition Failure (r(499) Error): State-level decompositions repeatedly crashed with an r(499) "zero variance" error. This  problem occurred  when a small subgroup (e.g., salaried women in Manipur) had zero observations for a specific category. This was solved by adding the , relax command option to all oaxaca commands, which instructs STATA to manage these empty cells and allows the analysis to run to completion.
 
