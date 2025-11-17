@@ -1,6 +1,6 @@
 # Econometric Analysis of Pay Equity in India (PLFS 2017-2024)
 
-This repository contains the econometric analysis of the Gender Wage Gap in the Indian Labour Market. The project involved stewarding 6 years of complex, unit-level national data from the Periodic Labour Force Survey (PLFS) to identify and decompose the drivers of pay inequity/ gender wage gap.
+This repository contains the econometric analysis of the Gender Wage Gap in the Indian Labour Market. The project utilised 6 years of complex, unit-level national data from the Periodic Labour Force Survey (PLFS) to identify and decompose the drivers of pay inequity/ gender wage gap.
 
 Tools: STATA, Microsoft Excel
 
